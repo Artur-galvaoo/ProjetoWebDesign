@@ -5,22 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Redirecionando...</title>
     <script>
-        // Obtém o nome do repositório (ex: 'ProjetoWebDesign')
+        // Obtém o nome do repositório
         const pathSegments = window.location.pathname.split('/');
         const repoName = pathSegments[1]; 
         const basePath = `/${repoName}`; 
 
-        // O caminho que o usuário tentou acessar (ex: /ProjetoWebDesign/about)
+        // O caminho que o usuário tentou acessar 
         const requestedPath = window.location.pathname;
-        // O hash atual (se já existir)
+        // O hash atual 
         const currentHash = window.location.hash;
 
-        // Se a URL já contiver o base path do repo e não estiver na raiz,
-        // ou se já tiver um hash, tentamos preservar a rota.
+
         let targetPath = basePath + '/index.html'; // Padrão: ir para index.html
 
-        // Se a URL original não for a raiz do repo ou index.html
-        // e não tiver um hash, adicione o caminho restante como hash.
+
         if (!requestedPath.endsWith(basePath + '/') && !requestedPath.endsWith(basePath + '/index.html') && !currentHash) {
             // Pega o que vem depois de /ProjetoWebDesign/
             const relativePath = requestedPath.substring(basePath.length); 

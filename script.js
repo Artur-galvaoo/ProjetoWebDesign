@@ -6,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const mobileMenuToggle = document.getElementById('mobile-menu');
     const mainNav = document.querySelector('.main-nav');
 
-    // Define o caminho base do seu repositório no GitHub Pages
-    // AGORA ESTÁ COM O NOME EXATO DO SEU REPOSITÓRIO: /ProjetoWebDesign/
+    // Define o caminho base do repositório no GitHub Pages
     const REPO_PATH = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost' ? '' : '/ProjetoWebDesign/'; 
 
     // Função para carregar o conteúdo via AJAX
@@ -21,9 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
             mainContent.classList.add('loading');
 
             // Constrói a URL completa para o fetch
-            // Se a URL do 'data-target' já começar com o REPO_PATH (ex: se você usasse /ProjetoWebDesign/content/home.html),
-            // não adiciona novamente. Caso contrário, ele adiciona o REPO_PATH no início.
-            const fetchUrl = REPO_PATH + url; // Simplificado: sempre adiciona REPO_PATH no início das URLs relativas do data-target
+            const fetchUrl = REPO_PATH + url; 
             
             const response = await fetch(fetchUrl);
             if (!response.ok) {
@@ -54,10 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 let newBrowserUrl = REPO_PATH; 
                 if (fileName === 'home') {
-                    // Para a página inicial, a URL deve ser a raiz do repositório (ex: seuusuario.github.io/ProjetoWebDesign/)
                     newBrowserUrl = REPO_PATH; 
                 } else {
-                    // Para outras páginas, use o hash (ex: seuusuario.github.io/ProjetoWebDesign/#contato)
                     newBrowserUrl += `index.html#${fileName}`; 
                 }
                 

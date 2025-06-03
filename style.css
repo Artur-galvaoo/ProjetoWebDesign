@@ -3,10 +3,10 @@
 /* ========================================= */
 body {
     margin: 0;
-    font-family: 'Arial', sans-serif; /* Fonte padrão, pode mudar para 'Roboto', 'Open Sans', etc. */
+    font-family: 'Arial', sans-serif; 
     line-height: 1.6;
     color: #333;
-    padding-top: 0; /* O padding-top no body foi removido pois a margem do hero-section já o compensa */
+    padding-top: 0; 
     background-color: #ffffff; /* Fundo branco para toda a página */
 }
 
@@ -23,7 +23,6 @@ a {
     color: inherit; /* Links herdam a cor do texto do pai por padrão */
 }
 
-/* Títulos */
 h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
     margin-bottom: 0.5em;
@@ -35,7 +34,7 @@ h1, h2, h3, h4, h5, h6 {
 /* BARRA DE NAVEGAÇÃO (HEADER)              */
 /* ========================================= */
 .main-header {
-    background-color: #fcfafa; /* Fundo off-white, como na sua imagem */
+    background-color: #fcfafa; 
     padding: 15px 0; /* Espaçamento interno superior/inferior */
     box-shadow: 0 1px 3px rgba(0,0,0,0.12); /* Sombra suave para destacar */
     position: fixed; /* Fixa o header no topo da tela */
@@ -54,7 +53,6 @@ h1, h2, h3, h4, h5, h6 {
     padding: 0 20px; /* Espaçamento lateral para telas menores */
 }
 
-/* Estilos para a área da logo (ícone + nome da igreja) */
 .logo a {
     display: flex; /* Alinha o ícone e o texto lado a lado */
     align-items: center; /* Centraliza verticalmente o ícone e o texto */
@@ -64,14 +62,14 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .logo img {
-    height: 30px; /* **AJUSTE AQUI A ALTURA DA SUA LOGO PNG** */
+    height: 30px; 
     width: auto; /* Mantém a proporção */
     margin-right: 10px; /* Espaço entre o ícone e o texto */
     display: block; /* Garante que não haja espaços extras */
 }
 
 .church-name {
-    font-size: 1.2em; /* Tamanho da fonte para o nome da igreja (ajuste se quiser maior/menor) */
+    font-size: 1.2em; /* Tamanho da fonte para o nome da igreja */
     font-weight: bold; /* Negrito */
     white-space: nowrap; /* Evita que o texto "Igreja Evangélica dos Irmãos" quebre a linha */
 }
@@ -89,7 +87,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .main-nav a {
-    color: #333; /* Cor do texto dos links (quase preto, como na sua imagem) */
+    color: #333; /* Cor do texto dos links */
     text-decoration: none; /* Remove o sublinhado */
     font-weight: bold;
     font-size: 1.0em; /* Tamanho da fonte dos links */
@@ -97,7 +95,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .main-nav a:hover {
-    color: #007bff; /* Cor ao passar o mouse (um azul padrão, pode ser ajustado) */
+    color: #002e5f; /* Cor ao passar o mouse (um azul padrão, pode ser ajustado) */
 }
 
 /* Esconde o menu hambúrguer por padrão em telas grandes */
@@ -125,11 +123,11 @@ h1, h2, h3, h4, h5, h6 {
 /* SEÇÃO PRINCIPAL (HERO SECTION)           */
 /* ========================================= */
 .hero-section {
-    background-image: url("imagens/igreja.png"); /* **MUDE PARA O CAMINHO DA SUA IMAGEM DE FUNDO** */
+    background-image: url("imagens/igreja.png");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    color: #fff; /* Cor do texto dentro da seção (branco para contraste com a imagem escura) */
+    color: #fff; /* Cor do texto dentro da seção */
     text-align: center;
     padding: 120px 20px;
     min-height: 500px;
