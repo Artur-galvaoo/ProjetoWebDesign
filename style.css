@@ -1,4 +1,387 @@
-body{
+/* ========================================= */
+/* ESTILOS GLOBAIS E RESET BÁSICO           */
+/* ========================================= */
+body {
     margin: 0;
-    font-family: 
+    font-family: 'Arial', sans-serif; /* Fonte padrão, pode mudar para 'Roboto', 'Open Sans', etc. */
+    line-height: 1.6;
+    color: #333;
+    padding-top: 0; /* O padding-top no body foi removido pois a margem do hero-section já o compensa */
+    background-color: #ffffff; /* Fundo branco para toda a página */
+}
+
+/* Garante que imagens não excedam o container */
+img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Remove o espaço extra abaixo das imagens */
+}
+
+/* Links em geral */
+a {
+    text-decoration: none;
+    color: inherit; /* Links herdam a cor do texto do pai por padrão */
+}
+
+/* Títulos */
+h1, h2, h3, h4, h5, h6 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+    color: #333; /* Cor padrão para títulos */
+}
+
+/* ========================================= */
+/* BARRA DE NAVEGAÇÃO (HEADER)              */
+/* ========================================= */
+.main-header {
+    background-color: #fcfafa; /* Fundo off-white, como na sua imagem */
+    padding: 15px 0; /* Espaçamento interno superior/inferior */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra suave para destacar */
+    position: fixed; /* Fixa o header no topo da tela */
+    width: 100%; /* Ocupa toda a largura */
+    top: 0; /* Alinha no topo */
+    left: 0; /* Alinha à esquerda */
+    z-index: 1000; /* Garante que fique acima de outros elementos */
+}
+
+.header-content {
+    max-width: 1200px; /* Largura máxima do conteúdo dentro do header */
+    margin: 0 auto; /* Centraliza o conteúdo */
+    display: flex; /* Habilita o Flexbox para layout lado a lado */
+    justify-content: space-between; /* Empurra logo para esquerda e nav para direita */
+    align-items: center; /* Centraliza verticalmente os itens (logo e nav) */
+    padding: 0 20px; /* Espaçamento lateral para telas menores */
+}
+
+/* Estilos para a área da logo (ícone + nome da igreja) */
+.logo a {
+    display: flex; /* Alinha o ícone e o texto lado a lado */
+    align-items: center; /* Centraliza verticalmente o ícone e o texto */
+    text-decoration: none; /* Remove sublinhado do link */
+    color: #333; /* Cor do texto do nome da igreja */
+    font-size: 1.1em; /* Tamanho base para o texto do link */
+}
+
+.logo img {
+    height: 30px; /* **AJUSTE AQUI A ALTURA DA SUA LOGO PNG** */
+    width: auto; /* Mantém a proporção */
+    margin-right: 10px; /* Espaço entre o ícone e o texto */
+    display: block; /* Garante que não haja espaços extras */
+}
+
+.church-name {
+    font-size: 1.2em; /* Tamanho da fonte para o nome da igreja (ajuste se quiser maior/menor) */
+    font-weight: bold; /* Negrito */
+    white-space: nowrap; /* Evita que o texto "Igreja Evangélica dos Irmãos" quebre a linha */
+}
+
+/* Estilos para a navegação (os links) */
+.main-nav ul {
+    list-style: none; /* Remove marcadores de lista */
+    margin: 0;
+    padding: 0;
+    display: flex; /* Alinha os itens do menu lado a lado */
+}
+
+.main-nav li {
+    margin-left: 30px; /* Espaçamento entre cada item do menu */
+}
+
+.main-nav a {
+    color: #333; /* Cor do texto dos links (quase preto, como na sua imagem) */
+    text-decoration: none; /* Remove o sublinhado */
+    font-weight: bold;
+    font-size: 1.0em; /* Tamanho da fonte dos links */
+    transition: color 0.3s ease; /* Transição suave na cor ao passar o mouse */
+}
+
+.main-nav a:hover {
+    color: #007bff; /* Cor ao passar o mouse (um azul padrão, pode ser ajustado) */
+}
+
+
+/* ========================================= */
+/* SEÇÃO PRINCIPAL (HERO SECTION)           */
+/* ========================================= */
+.hero-section {
+    background-image: url('imagens/background-cidade.jpg'); /* **MUDE PARA O CAMINHO DA SUA IMAGEM DE FUNDO** */
+    background-size: cover; /* Faz a imagem cobrir toda a área */
+    background-position: center; /* Centraliza a imagem */
+    background-repeat: no-repeat; /* Evita que a imagem se repita */
+    color: #fff; /* Cor do texto dentro da seção (branco para contraste com a imagem escura) */
+    text-align: center; /* Centraliza o texto horizontalmente */
+    padding: 120px 20px; /* Espaçamento interno (topo/fundo) para dar altura */
+    min-height: 500px; /* Altura mínima para a seção, ajuste se necessário */
+    display: flex; /* Habilita Flexbox */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    position: relative; /* Necessário para o overlay */
+    overflow: hidden; /* Garante que nada saia dos limites */
+    margin: 90px 40px 0; /* Margem superior para o header fixo, e margens laterais */
+    border-radius: 10px; /* Borda arredondada como na imagem */
+    box-sizing: border-box; /* Garante que padding e border sejam incluídos na largura/altura */
+}
+
+/* Adicionar um overlay escuro para melhorar a leitura do texto */
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.4); /* Preto com 40% de opacidade */
+    z-index: 1; /* Garante que o overlay fique abaixo do conteúdo mas acima da imagem */
+    border-radius: 10px; /* Mesma borda arredondada do pai */
+}
+
+.hero-content {
+    position: relative; /* Coloca o conteúdo acima do overlay */
+    z-index: 2; /* Garante que o conteúdo fique acima do overlay */
+    max-width: 800px; /* Largura máxima para o texto */
+    margin: 0 auto; /* Centraliza o conteúdo dentro do hero-section */
+    padding: 20px; /* Espaçamento interno */
+}
+
+.hero-content h1 {
+    font-size: 3.5em; /* Tamanho do título principal */
+    margin-bottom: 20px;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra no texto para melhor leitura */
+}
+
+.hero-content p {
+    font-size: 1.3em; /* Tamanho do parágrafo */
+    margin-bottom: 30px;
+    line-height: 1.5;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5); /* Sombra no texto */
+}
+
+/* Estilos para o botão primário */
+.btn-primary {
+    display: inline-block; /* Permite definir padding e margin */
+    background-color: #e74c3c; /* Cor do botão (vermelho/laranja na sua imagem) */
+    color: #fff; /* Cor do texto do botão */
+    padding: 15px 30px; /* Espaçamento interno do botão */
+    text-decoration: none; /* Remove sublinhado */
+    border-radius: 5px; /* Bordas arredondadas */
+    font-weight: bold;
+    font-size: 1.1em;
+    transition: background-color 0.3s ease; /* Transição suave ao passar o mouse */
+}
+
+.btn-primary:hover {
+    background-color: #c0392b; /* Cor mais escura ao passar o mouse */
+}
+
+
+/* ========================================= */
+/* SEÇÃO DE ARTIGOS EM DESTAQUE             */
+/* ========================================= */
+.featured-articles-section {
+    max-width: 1200px; /* Largura máxima do conteúdo */
+    margin: 60px auto; /* Margem superior e inferior, centralizado */
+    padding: 0 20px; /* Espaçamento lateral */
+    text-align: center;
+}
+
+.featured-articles-section h2 {
+    font-size: 2.2em;
+    margin-bottom: 40px;
+    color: #2c3e50; /* Uma cor escura para o título */
+}
+
+.articles-grid {
+    display: grid; /* Usa CSS Grid para o layout dos cards */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 3 colunas responsivas */
+    gap: 30px; /* Espaçamento entre os cards */
+    justify-content: center; /* Centraliza os itens no grid */
+    align-items: start; /* Alinha os cards pelo topo */
+}
+
+.article-card {
+    background-color: #ffffff; /* Fundo branco para os cards */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Sombra para os cards */
+    overflow: hidden; /* Garante que a imagem não saia da borda arredondada */
+    text-align: left; /* Alinha o texto à esquerda dentro do card */
+    display: flex; /* Habilita flexbox para alinhar conteúdo verticalmente */
+    flex-direction: column; /* Conteúdo em coluna */
+    height: 100%; /* Garante que todos os cards tenham a mesma altura */
+}
+
+.article-card img {
+    width: 100%;
+    height: 200px; /* Altura fixa para as imagens dos cards */
+    object-fit: cover; /* Corta a imagem para preencher o espaço, mantendo a proporção */
+    border-bottom: 1px solid #eee; /* Linha sutil abaixo da imagem */
+}
+
+.article-card-content {
+    padding: 20px;
+    flex-grow: 1; /* Permite que o conteúdo expanda para preencher o espaço */
+    display: flex;
+    flex-direction: column;
+}
+
+.article-card-content h3 {
+    font-size: 1.4em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.article-card-content p {
+    font-size: 0.95em;
+    color: #555;
+    line-height: 1.4;
+    margin-bottom: 20px;
+    flex-grow: 1; /* Faz o parágrafo ocupar o espaço restante */
+}
+
+/* ========================================= */
+/* SEÇÃO "STAY CONNECTED" (INSCRIÇÃO)       */
+/* ========================================= */
+.stay-connected-section {
+    background-color: #fcfafa; /* Fundo off-white, similar ao header */
+    padding: 80px 20px;
+    text-align: center;
+    max-width: 1200px;
+    margin: 60px auto; /* Margem superior e inferior, centralizado */
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); /* Sombra suave */
+}
+
+.stay-connected-section h2 {
+    font-size: 2.2em;
+    color: #2c3e50;
+    margin-bottom: 20px;
+}
+
+.stay-connected-section p {
+    font-size: 1.1em;
+    color: #555;
+    margin-bottom: 40px;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.subscribe-form {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Espaço entre o campo e o botão */
+    flex-wrap: wrap; /* Permite que os itens quebrem linha em telas pequenas */
+}
+
+.subscribe-form input[type="email"] {
+    padding: 15px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    width: 300px; /* Largura do campo de email */
+    max-width: 80%; /* Garante responsividade */
+    box-sizing: border-box; /* Inclui padding e border na largura */
+}
+
+.subscribe-form .btn-primary {
+    /* Reutiliza o estilo do botão primário */
+    padding: 15px 30px; /* Ajuste se quiser um padding diferente aqui */
+}
+
+/* ========================================= */
+/* RODAPÉ (FOOTER)                          */
+/* ========================================= */
+.main-footer {
+    background-color: #333; /* Cor de fundo escura, como na imagem */
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: 60px; /* Espaço superior */
+}
+
+.footer-links {
+    margin-bottom: 15px;
+}
+
+.footer-links a {
+    color: #bbb; /* Cor dos links do rodapé */
+    margin: 0 15px;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #fff; /* Cor ao passar o mouse */
+}
+
+.footer-copyright {
+    color: #bbb;
+}
+
+/* ========================================= */
+/* RESPONSIVIDADE (MEDIA QUERIES)           */
+/* ========================================= */
+
+/* Para telas menores que 768px (tablets e celulares) */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column; /* Empilha logo e navegação */
+        align-items: flex-start; /* Alinha tudo à esquerda */
+    }
+
+    .main-nav ul {
+        flex-direction: column; /* Links do menu em coluna */
+        width: 100%;
+        margin-top: 15px;
+        align-items: flex-start;
+    }
+
+    .main-nav li {
+        margin: 0 0 10px 0; /* Espaçamento vertical entre links */
+    }
+
+    .hero-content h1 {
+        font-size: 2.5em; /* Reduz o tamanho do título */
+    }
+
+    .hero-content p {
+        font-size: 1.1em; /* Reduz o tamanho do parágrafo */
+    }
+
+    .articles-grid {
+        grid-template-columns: 1fr; /* Apenas 1 coluna para os cards em telas pequenas */
+    }
+
+    .subscribe-form {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .subscribe-form input[type="email"] {
+        width: 90%; /* Ajusta a largura do campo de email */
+        max-width: 300px;
+    }
+}
+
+/* Para telas muito pequenas (celulares) */
+@media (max-width: 480px) {
+    .hero-section {
+        margin: 80px 10px 0; /* Margens laterais menores */
+        padding: 80px 10px;
+        min-height: 400px;
+    }
+
+    .hero-content h1 {
+        font-size: 2em;
+    }
+
+    .hero-content p {
+        font-size: 1em;
+    }
+
+    .btn-primary {
+        padding: 12px 25px;
+        font-size: 1em;
+    }
 }
