@@ -1,43 +1,39 @@
 document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
-    // Seleciona todos os links da nav, logo e o botão primário, e também os links que são carregados via AJAX
     const navLinks = document.querySelectorAll('.main-nav a, .logo a, .btn-primary');
     const pageTitle = document.querySelector('title');
 
-    // Elementos do menu hambúrguer
     const mobileMenuToggle = document.getElementById('mobile-menu');
-    const navList = document.querySelector('.main-nav .nav-list'); // Seleciona a ul com a classe nav-list
-
+    const mainNav = document.querySelector('.main-nav');
 
     // Define o caminho base do seu repositório no GitHub Pages
-    const REPO_PATH = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost' ? '' : '/ProjetoWebDesign/';
-    // Adapte 'ProjetoWebDesign' se o nome do seu repositório no GitHub for diferente.
+    // AGORA ESTÁ COM O NOME EXATO DO SEU REPOSITÓRIO: /ProjetoWebDesign/
+    const REPO_PATH = window.location.hostname === '127.0.0.1' || window.location.hostname === 'localhost' ? '' : '/ProjetoWebDesign/'; 
 
     // Função para carregar o conteúdo via AJAX
     async function loadContent(url, pushState = true) {
-        // Fecha o menu mobile se estiver aberto
-        if (navList.classList.contains('active')) {
-            navList.classList.remove('active');
+        if (mainNav.classList.contains('active')) {
+            mainNav.classList.remove('active');
             mobileMenuToggle.classList.remove('active');
         }
 
         try {
-            mainContent.classList.add('loading'); // Adiciona classe para possíveis animações de carregamento
+            mainContent.classList.add('loading');
 
-            const response = await fetch(url);
+            // Constrói a URL completa para o fetch
+            // Se a URL do 'data-target' já começar com o REPO_PATH (ex: se você usasse /ProjetoWebDesign/content/home.html),
+            // não adiciona novamente. Caso contrário, ele adiciona o REPO_PATH no início.
+            const fetchUrl = REPO_PATH + url; // Simplificado: sempre adiciona REPO_PATH no início das URLs relativas do data-target
+            
+            const response = await fetch(fetchUrl);
             if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status} ao carregar ${url}`);
+                throw new Error(`HTTP error! status: ${response.status} ao carregar ${fetchUrl}`);
             }
             const html = await response.text();
 
             const parser = new DOMParser();
             const doc = parser.parseFromString(html, 'text/html');
 
-            // Importante: Você precisa pegar o HTML específico da seção que deseja carregar
-            // Em vez de doc.body.innerHTML, que pode trazer scripts indesejados,
-            // podemos pegar a seção principal de cada arquivo de conteúdo se eles forem estruturados com um ID
-            // ou garantir que o doc.body.innerHTML contenha apenas o conteúdo relevante.
-            // Para simplificar agora, manteremos doc.body.innerHTML, mas tenha em mente para projetos maiores.
             const newContent = doc.body.innerHTML; 
             mainContent.innerHTML = newContent;
 
@@ -55,15 +51,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (pushState) {
                 const urlParts = url.split('/');
                 const fileName = urlParts[urlParts.length - 1].replace('.html', '');
-                // Ajuste para URLs limpas (sem .html e com # para as "páginas" internas)
-                let newBrowserUrl = REPO_PATH;
-                if (fileName !== 'home') {
-                    newBrowserUrl += `#${fileName}`;
-                } else if (REPO_PATH !== '') { // Se não for home e for um repositório, use index.html
-                    newBrowserUrl += 'index.html'; // Para que a URL seja /repositorio/index.html e não apenas /repositorio/
+                
+                let newBrowserUrl = REPO_PATH; 
+                if (fileName === 'home') {
+                    // Para a página inicial, a URL deve ser a raiz do repositório (ex: seuusuario.github.io/ProjetoWebDesign/)
+                    newBrowserUrl = REPO_PATH; 
+                } else {
+                    // Para outras páginas, use o hash (ex: seuusuario.github.io/ProjetoWebDesign/#contato)
+                    newBrowserUrl += `index.html#${fileName}`; 
                 }
-
-
+                
                 history.pushState({ path: url }, '', newBrowserUrl);
             }
 
@@ -80,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
     navLinks.forEach(link => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
-
             const targetUrl = link.getAttribute('data-target');
             if (targetUrl) {
                 loadContent(targetUrl);
@@ -90,45 +86,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Lógica do menu hambúrguer
     mobileMenuToggle.addEventListener('click', () => {
-        navList.classList.toggle('active'); // Adiciona/remove a classe 'active' na lista de navegação
-        mobileMenuToggle.classList.toggle('active'); // Adiciona/remove a classe 'active' no ícone (para animação)
+        mainNav.classList.toggle('active');
+        mobileMenuToggle.classList.toggle('active');
     });
 
-    // MUDANÇA MAIOR AQUI: Refinamento da lógica de popstate e carga inicial
+    // Lógica de popstate e carga inicial da página
     window.addEventListener('popstate', handleUrlChange);
 
     function handleUrlChange() {
-        let pageToLoad = 'home'; // Default para a página inicial
+        let pageToLoad = 'home'; 
+        let currentPathname = window.location.pathname;
 
-        // Verifica o hash (ex: #contact, #about) para navegação interna de SPA
+        // Remove o REPO_PATH se estiver presente do pathname
+        if (currentPathname.startsWith(REPO_PATH)) {
+            currentPathname = currentPathname.substring(REPO_PATH.length);
+        }
+        
+        // Limpa barras e extensão .html
+        currentPathname = currentPathname.replace(/^\/|\/$/g, '');
+        currentPathname = currentPathname.replace(/\.html$/i, '');
+
+        // Determina a página com base no hash ou pathname
         if (window.location.hash) {
-            const hashPage = window.location.hash.substring(1); // Remove o '#'
+            const hashPage = window.location.hash.substring(1);
             if (hashPage) {
                 pageToLoad = hashPage;
             }
-        } 
-        // Se não houver hash, tenta inferir a página do pathname (útil para primeira carga ou se for um MPA)
-        else {
-            let currentPathname = window.location.pathname;
-
-            // Remove o REPO_PATH se estiver presente (importante para GitHub Pages)
-            if (currentPathname.startsWith(REPO_PATH)) {
-                currentPathname = currentPathname.substring(REPO_PATH.length);
-            }
-            
-            // Remove barras iniciais/finais e a extensão .html
-            currentPathname = currentPathname.replace(/^\/|\/$/g, '');
-            currentPathname = currentPathname.replace(/\.html$/i, '');
-
-            if (currentPathname !== '' && currentPathname.toLowerCase() !== 'index') {
-                pageToLoad = currentPathname;
-            }
+        } else if (currentPathname !== '' && currentPathname.toLowerCase() !== 'index') {
+            pageToLoad = currentPathname;
         }
         
-        // Carrega o conteúdo correspondente
         loadContent(`content/${pageToLoad}.html`, false);
     }
 
-    // Dispara o carregamento inicial da página com base na URL
-    handleUrlChange();
+    // Dispara o carregamento inicial da página
+    handleUrlChange(); // Chama handleUrlChange para carregar a página inicial ou a página com base na URL atual
 });

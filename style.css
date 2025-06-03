@@ -125,7 +125,7 @@ h1, h2, h3, h4, h5, h6 {
 /* SEÇÃO PRINCIPAL (HERO SECTION)           */
 /* ========================================= */
 .hero-section {
-    background-image: url("../imagens/igreja.png"); /* **MUDE PARA O CAMINHO DA SUA IMAGEM DE FUNDO** */
+    background-image: url("imagens/igreja.png"); /* **MUDE PARA O CAMINHO DA SUA IMAGEM DE FUNDO** */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
