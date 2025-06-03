@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redirecionando...</title>
+    <script>
+        // Obtém o nome do repositório (ex: 'ProjetoWebDesign')
+        const pathSegments = window.location.pathname.split('/');
+        const repoName = pathSegments[1]; 
+        const basePath = `/${repoName}`; 
+
+        // Obtém o caminho completo atual sem o nome do repositório e sem a barra inicial
+        const currentRelativePath = window.location.pathname.substring(basePath.length);
+
+        // Redireciona para o index.html, mas mantendo a "rota" original na URL
+        // Isso permite que seu script.js, ao ser carregado pelo index.html,
+        // consiga "ler" a URL e carregar o conteúdo correto.
+        // Ex: de /ProjetoWebDesign/about para /ProjetoWebDesign/index.html#/about
+        // ou /ProjetoWebDesign/index.html?page=about
+        // Para seu caso, o history.replaceState já é suficiente com o path original
+        history.replaceState(null, null, `<span class="math-inline">\{basePath\}/index\.html</span>{currentRelativePath}`);
+        window.location.replace(`<span class="math-inline">\{basePath\}/index\.html</span>{currentRelativePath}`); // Redirecionamento forçado para garantir
+    </script>
+</head>
+<body>
+    <p>Redirecionando para a página principal...</p>
+</body>
+</html>
