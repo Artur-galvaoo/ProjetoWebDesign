@@ -34,17 +34,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 pageTitle.textContent = `Igreja Evangélica dos Irmãos - ${fileName.charAt(0).toUpperCase() + fileName.slice(1)}`;
             }
 
-            // MUDANÇA CRÍTICA AQUI: Atualiza a URL no histórico do navegador para o formato COM HASH
+            // ATUALIZAÇÃO AQUI: Atualiza a URL no histórico do navegador para o formato COM HASH
             if (pushState) {
                 const urlParts = url.split('/');
                 const fileName = urlParts[urlParts.length - 1].replace('.html', '');
                 
                 // Construa a URL com hash para a navegação interna
-                // Se for home, a URL será /ProjetoWebDesign/index.html
+                // Se for home, a URL será /ProjetoWebDesign/index.html (sem hash)
                 // Senão, será /ProjetoWebDesign/index.html#nome_da_pagina
                 const newHash = fileName === 'home' ? '' : `#${fileName}`;
                 
-                // history.pushState só muda o path e o hash, não o base (o index.html é fixo)
+                // history.pushState só muda o path e o hash. O path deve ser sempre index.html para o servidor estático.
                 history.pushState({ path: url }, '', `${REPO_PATH}index.html${newHash}`); 
             }
 
@@ -62,34 +62,33 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (e) => {
             e.preventDefault();
 
-            // O data-target ainda aponta para o caminho real do arquivo (ex: content/home.html)
-            const targetUrl = link.getAttribute('data-target');
+            const targetUrl = link.getAttribute('data-target'); // Pega a URL do data-target (ex: content/home.html)
             if (targetUrl) {
-                loadContent(targetUrl);
+                loadContent(targetUrl); // Chama loadContent com o caminho completo do arquivo
             }
         });
     });
 
-    // Gerencia o botão "Voltar" do navegador e a carga inicial
-    window.addEventListener('popstate', handlePopStateAndInitialLoad);
+    // MUDANÇA MAIOR AQUI: Refinamento da lógica de popstate e carga inicial
+    window.addEventListener('popstate', handleUrlChange); // Usa a mesma função para popstate
 
-    // Função separada para lidar com popstate e carga inicial para evitar duplicação
-    function handlePopStateAndInitialLoad() {
-        let pageToLoad = 'home'; // Padrão: carregar home.html
+    function handleUrlChange() {
+        let pageToLoad = 'home'; // Padrão: carregar home.html (content/home.html)
 
-        // Prioriza o hash para o roteamento de SPA
+        // Primeiro, verifique se há um hash na URL
         if (window.location.hash) {
-            // Remove o '#' do início
-            const hashPage = window.location.hash.substring(1); 
-            if (hashPage && hashPage.toLowerCase() !== 'index') { // Garante que '#index' não tente carregar content/index.html
+            const hashPage = window.location.hash.substring(1); // Remove o '#'
+            if (hashPage) { // Se o hash não for vazio
                 pageToLoad = hashPage;
             }
         } 
-        // Se não houver hash, tenta a URL limpa (para carga inicial sem hash ou 404 redirecionado)
+        // Se não houver hash, verifique se a URL limpa (pathname) aponta para alguma rota específica
+        // Isso é mais para o caso de o 404.html ter redirecionado sem hash na primeira carga
+        // ou para acessos diretos.
         else {
             let currentPathname = window.location.pathname;
 
-            // Remove o REPO_PATH se estiver presente
+            // Remove o REPO_PATH se estiver presente (importante para GitHub Pages)
             if (currentPathname.startsWith(REPO_PATH)) {
                 currentPathname = currentPathname.substring(REPO_PATH.length);
             }
@@ -98,15 +97,18 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPathname = currentPathname.replace(/^\/|\/$/g, '');
             currentPathname = currentPathname.replace(/\.html$/i, '');
 
-            // Se o caminho resultante não for vazio e não for 'index' (pois 'index' significa home)
+            // Se o caminho limpo não for vazio e não for 'index', usa-o como nome da página
+            // Ex: Se a URL for /ProjetoWebDesign/contact, currentPathname será 'contact'
+            // Se for /ProjetoWebDesign/index.html, currentPathname será 'index'
             if (currentPathname !== '' && currentPathname.toLowerCase() !== 'index') {
                 pageToLoad = currentPathname;
             }
         }
         
+        // Finaliza chamando loadContent com o caminho correto do arquivo HTML
         loadContent(`content/${pageToLoad}.html`, false);
     }
 
-    // Chamada inicial para carregar o conteúdo correto
-    handlePopStateAndInitialLoad();
+    // Chamada inicial para carregar o conteúdo correto quando a página é acessada pela primeira vez
+    handleUrlChange();
 });
