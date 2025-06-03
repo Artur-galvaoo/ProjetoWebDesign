@@ -37,11 +37,11 @@ h1, h2, h3, h4, h5, h6 {
 .main-header {
     background-color: #fcfafa; /* Fundo off-white, como na sua imagem */
     padding: 15px 0; /* Espaçamento interno superior/inferior */
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12); /* Sombra suave para destacar */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra suave para destacar */
     position: fixed; /* Fixa o header no topo da tela */
     width: 100%; /* Ocupa toda a largura */
     top: 0; /* Alinha no topo */
-    left: 5; /* Alinha à esquerda */
+    left: 0; /* Alinha à esquerda */
     z-index: 1000; /* Garante que fique acima de outros elementos */
 }
 

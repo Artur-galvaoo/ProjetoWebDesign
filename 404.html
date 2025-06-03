@@ -10,15 +10,35 @@
         const repoName = pathSegments[1]; 
         const basePath = `/${repoName}`; 
 
-        // Obtém o caminho completo atual sem o nome do repositório e sem a barra inicial
-        // Isso é o que vem DEPOIS de /ProjetoWebDesign/ (ex: 'about', 'contact')
-        const currentRelativePath = window.location.pathname.substring(basePath.length);
+        // O caminho que o usuário tentou acessar (ex: /ProjetoWebDesign/about)
+        const requestedPath = window.location.pathname;
+        // O hash atual (se já existir)
+        const currentHash = window.location.hash;
 
-        // A linha abaixo usa template literals (backticks ` `) corretamente
-        // para incorporar variáveis.
-        history.replaceState(null, null, `${basePath}/index.html${currentRelativePath}`);
-        // O window.location.replace é um fallback forte que força o navegador a carregar index.html
-        window.location.replace(`${basePath}/index.html${currentRelativePath}`); 
+        // Se a URL já contiver o base path do repo e não estiver na raiz,
+        // ou se já tiver um hash, tentamos preservar a rota.
+        let targetPath = basePath + '/index.html'; // Padrão: ir para index.html
+
+        // Se a URL original não for a raiz do repo ou index.html
+        // e não tiver um hash, adicione o caminho restante como hash.
+        if (!requestedPath.endsWith(basePath + '/') && !requestedPath.endsWith(basePath + '/index.html') && !currentHash) {
+            // Pega o que vem depois de /ProjetoWebDesign/
+            const relativePath = requestedPath.substring(basePath.length); 
+            // Adiciona como hash
+            targetPath += `#${relativePath}`; 
+        } else if (currentHash) {
+            // Se já tem hash, mantém o hash (para o caso de redirecionamentos internos no 404)
+            targetPath += currentHash;
+        }
+
+        // Usa replaceState para mudar a URL no histórico sem recarregar inicialmente,
+        // mas adicionando o hash para que o JS principal possa ler.
+        history.replaceState(null, null, targetPath);
+
+        // Força o redirecionamento para o index.html, garantindo que o servidor estático
+        // sempre sirva o arquivo principal. O JS do index.html irá ler o hash.
+        window.location.replace(targetPath);
+
     </script>
 </head>
 <body>
