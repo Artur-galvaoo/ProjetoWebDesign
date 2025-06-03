@@ -37,11 +37,11 @@ h1, h2, h3, h4, h5, h6 {
 .main-header {
     background-color: #fcfafa; /* Fundo off-white, como na sua imagem */
     padding: 15px 0; /* Espaçamento interno superior/inferior */
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1); /* Sombra suave para destacar */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12); /* Sombra suave para destacar */
     position: fixed; /* Fixa o header no topo da tela */
     width: 100%; /* Ocupa toda a largura */
     top: 0; /* Alinha no topo */
-    left: 0; /* Alinha à esquerda */
+    left: 5; /* Alinha à esquerda */
     z-index: 1000; /* Garante que fique acima de outros elementos */
 }
 
@@ -64,7 +64,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .logo img {
-    height: 30px; /* **AJUSTE AQUI A ALTURA DA SUA LOGO PNG** */
+    height: 40px; /* **AJUSTE AQUI A ALTURA DA SUA LOGO PNG** */
     width: auto; /* Mantém a proporção */
     margin-right: 10px; /* Espaço entre o ícone e o texto */
     display: block; /* Garante que não haja espaços extras */
@@ -105,11 +105,11 @@ h1, h2, h3, h4, h5, h6 {
 /* SEÇÃO PRINCIPAL (HERO SECTION)           */
 /* ========================================= */
 .hero-section {
-    background-image: url('imagens/background-cidade.jpg'); /* **MUDE PARA O CAMINHO DA SUA IMAGEM DE FUNDO** */
+    background-image: url('imagens/igreja.png'); /* **MUDE PARA O CAMINHO DA SUA IMAGEM DE FUNDO** */
     background-size: cover; /* Faz a imagem cobrir toda a área */
     background-position: center; /* Centraliza a imagem */
     background-repeat: no-repeat; /* Evita que a imagem se repita */
-    color: #fff; /* Cor do texto dentro da seção (branco para contraste com a imagem escura) */
+    color: #ffff; /* Cor do texto dentro da seção (branco para contraste com a imagem escura) */
     text-align: center; /* Centraliza o texto horizontalmente */
     padding: 120px 20px; /* Espaçamento interno (topo/fundo) para dar altura */
     min-height: 500px; /* Altura mínima para a seção, ajuste se necessário */
@@ -149,6 +149,7 @@ h1, h2, h3, h4, h5, h6 {
     margin-bottom: 20px;
     line-height: 1.2;
     text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra no texto para melhor leitura */
+    color: #ffff
 }
 
 .hero-content p {

@@ -5,37 +5,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Igreja Evangélica dos Irmãos</title>
     <link rel="stylesheet" href="style.css">
-    
 </head>
 <body>
     <header class="main-header">
         <div class="header-content">
             <div class="logo">
                 <a href="content/home.html" data-target="content/home.html">
-                    <img src= "imagens\logo.png" alt="Logo da Igreja">
+                    <img src="imagens/logo.png" alt="Logo da Igreja">
                     <span class="church-name">Igreja Evangélica dos Irmãos</span>
                 </a>
             </div>
             <nav class="main-nav">
                 <ul>
                     <li><a href="content/home.html" data-target="content/home.html">Início</a></li>
-                    <li><a href="content/contact.html" data-target="content/contact.html">Contato</a></li>
-                    <li><a href="content/about.html" data-target="content/about.html">Missão</a></li>
-                    <li><a href="content/learn.html" data-target="content/learn.html">Aprenda Mais</a></li>
+                    <li><a href="content/contact.html" data-target="content/contact.html">Entre em Contato</a></li>
+                    <li><a href="content/about.html" data-target="content/about.html">Sobre Nós</a></li>
+                    <li><a href="content/learn.html" data-target="content/learn.html">Aprenda mais</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main id="main-content">
-       <section class="hero-section">
+        <section class="hero-section">
             <div class="hero-content">
                 <h1>Abraçando a Fé no Mundo Moderno</h1>
-                <p>Explore percepções, inspiração e orientação para navegar sua jornada espiritual no mundod e hoje.</p>
+                <p>Explore percepções, inspiração e orientação para navegar sua jornada espiritual no mundo de hoje.</p>
                 <a href="content/learn.html" data-target="content/learn.html" class="btn-primary">Explorar Artigos</a>
             </div>
-       </section>
+        </section>
+        <section class="featured-articles-section">
+            <h2>Artigos em Destaque</h2>
+            <div class="articles-grid">
+                <div class="article-card">
+                    <img src="imagens/coliseu.png" alt="Imagem do Coliseu"> 
+                    <div class="article-card-content">
+                        <h3>O Papel da Fé na Era Digital</h3>
+                        <p>Explorando como a fé se adapta e prospera em uma sociedade cada vez mais digital.</p>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <img src="imagens/meditacao.jpg" alt="Mulher meditando"> 
+                    <div class="article-card-content">
+                        <h3>Encontrando Paz em um Mundo Acelerado</h3>
+                        <p>Estratégias para cultivar a paz interior em meio às demandas da vida moderna.</p>
+                    </div>
+                </div>
+                <div class="article-card">
+                    <img src="imagens/comunidade.jpg" alt="Grupo de pessoas em comunidade"> 
+                    <div class="article-card-content">
+                        <h3>O Futuro da Comunidade Religiosa</h3>
+                        <p>Visualizando a evolução das comunidades religiosas em um mundo conectado.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="stay-connected-section">
+            <h2>Mantenha-se Conectado</h2>
+            <p>Junte-se à nossa comunidade para receber atualizações sobre novos artigos, eventos e recursos.</p>
+            <form class="subscribe-form">
+                <input type="email" placeholder="Seu email" required>
+                <button type="submit" class="btn-primary">Inscrever-se</button>
+            </form>
+        </section>
     </main>
+
+    <footer class="main-footer">
+        <div class="footer-links">
+            <a href="#">Política de Privacidade</a>
+            <a href="#">Termos de Serviço</a>
+        </div>
+        <div class="footer-copyright">
+            @2025 Igreja Evangélica dos Irmãos. Todos os direitos reservados.
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>
